@@ -1,7 +1,11 @@
 var ActivityIndicator = {
-    show: function (text) {
+    show: function (text,cancelCallback) {
     	text = text || "Please wait...";
-        cordova.exec(null, null, "ActivityIndicator", "show", [text]);
+    	if(cancelCallback ==true && typeof cancelCallback != function)
+    	{
+    		cancelCallback = function(){}
+    	}
+        cordova.exec(cancelCallback, null, "ActivityIndicator", "show", [text, !!cancelCallback]);
     },
     hide: function () {
         cordova.exec(null, null, "ActivityIndicator", "hide", []);
